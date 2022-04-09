@@ -1,6 +1,6 @@
-@import "./mixins.scss";
+  @import "./mixins.scss";
 $main-color: #689f38;
-
+@import "./loader.scss";
 html,
 body,
 ul,
@@ -71,9 +71,6 @@ h1 {
   margin-bottom: 1rem;
 }
 
-.loader{
-  @include loader;
-};
 
 
 
