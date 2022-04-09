@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "scripts": {
     "start": "webpack  serve --mode development",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "format": "prettier --write src/*"
   },
   "devDependencies": {
     "mini-css-extract-plugin": "^2.6.0",
+    "prettier": "^2.6.2",
     "sass": "^1.50.0",
     "sass-loader": "^12.6.0",
     "webpack": "^5.72.0",
