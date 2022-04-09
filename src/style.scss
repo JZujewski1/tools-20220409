@@ -1,4 +1,9 @@
 $main-color: #689f38;
+@mixin ellipsis () {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 html,
 body,
 ul,
@@ -25,9 +30,7 @@ h1 {
   
   .title {
   max-width: 33vw;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  @include ellipsis;
   font-size: 1.6180339rem;
   line-height: 2.71828rem;
   padding-left: 1rem;
