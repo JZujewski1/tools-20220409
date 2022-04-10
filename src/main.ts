@@ -1,28 +1,13 @@
+import { Post } from "./model/post";
+import { Comment } from "./model/comment";
+import { Author } from "./model/author";
+
 const apiUrl: string = "https://jsonplaceholder.typicode.com";
 
 const postsUrl: string = apiUrl + "/posts";
 const commentsUrl: string = `${apiUrl}/comments`;
 const usersUrl: string = `${apiUrl}/users`;
 
-interface Author {
-    id: number,
-    name: string,
-    username: string,
-    email: string,
-};
-interface Post {
-  userId: number,
-    id: number,
-    title: string,
-    body: string,
-};
-interface Comment {
-  postId: number,
-  id: number,
-  name: string,
-  email: string,
-  body: string,
-};
 
 async function setAuthor(authorId: void): Promise<void> {
   const user: Author = await getApiResponse(`${usersUrl}/${authorId}`);
@@ -31,7 +16,7 @@ async function setAuthor(authorId: void): Promise<void> {
   userElement.innerHTML = `<h3>${user.name} <small>(${user.email})</small></h3>`;
 };
 
-  async function loadComments(postId: number): Promise<any> {
+  async function loadComments(postId: any): Promise<void> {
     const comments: Comment[] = await getApiResponse(`${commentsUrl}?postId=${postId}`);
     const commentsContainer = document.getElementById("comments");
     commentsContainer.innerHTML = "";
@@ -51,20 +36,21 @@ async function getApiResponse(url: string): Promise<any> {
     const json: any = await response.json();
     return json;
   };
-
-  async function addListElement(post: Post): Promise<any> {
-    const element= document.createElement("li");
-    element.innerText = `${post.id} ${post.title}`;
-    element.classList.add("title");
-    element.addEventListener("click", async () => {
-      const contentElement = document.getElementById("content");
+  async function addListElement(post: Post): Promise<void> {
+    const element = document.createElement('li');
+    const label = `${post.id} ${post.title}`;
+    element.innerText = label;
+    element.classList.add('title');
+    element.addEventListener('click', async () => {
+      const contentElement = document.getElementById('content');
       contentElement.innerHTML = `<h2>${post.title}</h2><p>${post.body}</p>`;
       setAuthor(post.userId);
       loadComments(post.id);
     });
-    const listContainer = document.getElementById("list");
+
+    const listContainer = document.getElementById('list');
     listContainer.append(element);
-  };
+  }
   document.addEventListener("DOMContentLoaded", (): void => {
     const content = document.querySelector("#content");
   
