@@ -58,10 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
           addListElement(post);
         }
       })
-      .catch(() => {
-        // eslint-disable-next-line no-undef
-        loader.remove();
-      })
+      
       .finally(() => {
         const loader = document.querySelector("#spinner");
         loader.remove();
