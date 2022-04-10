@@ -3,7 +3,6 @@ const apiUrl = "https://jsonplaceholder.typicode.com";
 const postsUrl = apiUrl + "/posts";
 const commentsUrl = `${apiUrl}/comments`;
 const usersUrl = `${apiUrl}/users`;
-let authorsUrl;
 
 async function getApiResponse(url) {
   const postsRequest = fetch(url);
@@ -12,7 +11,6 @@ async function getApiResponse(url) {
 }
 
 async function setAuthor(authorId) {
-  const userUrl = `${usersUrl}/${authorId}`;
   const user = await getApiResponse(`${usersUrl}/${authorId}`);
   const userElement = document.getElementById("author");
   userElement.classList.add("author");
@@ -20,7 +18,6 @@ async function setAuthor(authorId) {
 }
 
 async function loadComments(postId) {
-  const postCommentsUrl = `${commentsUrl}?postId=${postId}`;
   const comments = await getApiResponse(`${commentsUrl}?postId=${postId}`);
   const commentsContainer = document.getElementById("comments");
   commentsContainer.innerHTML = "";
@@ -37,7 +34,6 @@ async function loadComments(postId) {
 
 async function addListElement(post) {
   const element = document.createElement("li");
-  const label = `${post.id} ${post.title}`;
   element.innerText = `${post.id} ${post.title}`;
   element.classList.add("title");
   element.addEventListener("click", async () => {
@@ -50,7 +46,7 @@ async function addListElement(post) {
   listContainer.append(element);
 }
 
-document.addEventListener("DOMContentLoaded", (event) => {
+document.addEventListener("DOMContentLoaded", () => {
   const content = document.querySelector("#content");
 
   setTimeout(() => {
@@ -62,7 +58,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
           addListElement(post);
         }
       })
-      .catch((error) => {
+      .catch(() => {
+        // eslint-disable-next-line no-undef
         loader.remove();
       })
       .finally(() => {
